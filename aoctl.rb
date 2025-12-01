@@ -5,21 +5,21 @@
 class Aoctl < Formula
   desc "Advent of Code CLI to help you organize and test your solutions"
   homepage "https://pkg.go.dev/github.com/dolfolife/aoctl"
-  version "0.0.14"
+  version "0.0.17"
   license "MIT"
 
   on_macos do
-    if Hardware::CPU.intel?
-      url "https://github.com/dolfolife/aoctl/releases/download/v0.0.14/aoctl_Darwin_x86_64.tar.gz"
-      sha256 "1521cfee8749c799ba1bc0417c98b1c2d7ebf1f533448e3d7625c2c58b6dca68"
+    on_intel do
+      url "https://github.com/dolfolife/aoctl/releases/download/v0.0.17/aoctl_Darwin_x86_64.tar.gz"
+      sha256 "081bddf0511499bd5e991e9ddd3c62e062330de0cebffe273b2cfa6aa0a7b739"
 
       def install
         bin.install "aoctl"
       end
     end
-    if Hardware::CPU.arm?
-      url "https://github.com/dolfolife/aoctl/releases/download/v0.0.14/aoctl_Darwin_arm64.tar.gz"
-      sha256 "e5cf8819c65f67559df4488307e312c9580c65d3b391256427128adc6259db58"
+    on_arm do
+      url "https://github.com/dolfolife/aoctl/releases/download/v0.0.17/aoctl_Darwin_arm64.tar.gz"
+      sha256 "72cff121a2c084103f491fafdd41a8ac2889849d26af7e6d7bbd5c2ec4d51214"
 
       def install
         bin.install "aoctl"
@@ -28,28 +28,34 @@ class Aoctl < Formula
   end
 
   on_linux do
-    if Hardware::CPU.arm? && !Hardware::CPU.is_64_bit?
-      url "https://github.com/dolfolife/aoctl/releases/download/v0.0.14/aoctl_Linux_armv6.tar.gz"
-      sha256 "a93a632a678ab99551b3d3c1843b2b6008c78bb0270725e1c3674ecd263bedaa"
+    on_intel do
+      if Hardware::CPU.is_64_bit?
+        url "https://github.com/dolfolife/aoctl/releases/download/v0.0.17/aoctl_Linux_x86_64.tar.gz"
+        sha256 "ec521b44ea0a1a9d900c7d3c5be9cfbae3d99806bfb21834fccdb9b3812045f8"
 
-      def install
-        bin.install "aoctl"
+        def install
+          bin.install "aoctl"
+        end
       end
     end
-    if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/dolfolife/aoctl/releases/download/v0.0.14/aoctl_Linux_arm64.tar.gz"
-      sha256 "9c4ad542663e1c09518f85399e178b10c0a1c67a96025afc6d7df80a1ade79e2"
+    on_arm do
+      if !Hardware::CPU.is_64_bit?
+        url "https://github.com/dolfolife/aoctl/releases/download/v0.0.17/aoctl_Linux_armv6.tar.gz"
+        sha256 "913f118591010579ccb67c82cffc8e60cdb69b831b102a8b0bb3c4214d57cd8c"
 
-      def install
-        bin.install "aoctl"
+        def install
+          bin.install "aoctl"
+        end
       end
     end
-    if Hardware::CPU.intel?
-      url "https://github.com/dolfolife/aoctl/releases/download/v0.0.14/aoctl_Linux_x86_64.tar.gz"
-      sha256 "1b35788db464abc360a746f3f7b1d78246713f985d20975b4f2b13370238413b"
+    on_arm do
+      if Hardware::CPU.is_64_bit?
+        url "https://github.com/dolfolife/aoctl/releases/download/v0.0.17/aoctl_Linux_arm64.tar.gz"
+        sha256 "e4d89a392c05475ec97541b8256308097cc91b597b77e3ea87bb4e4e738aae22"
 
-      def install
-        bin.install "aoctl"
+        def install
+          bin.install "aoctl"
+        end
       end
     end
   end
